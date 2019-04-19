@@ -4,7 +4,7 @@ class Themes extends Component {
     render() {
         return(
             <div className="top">
-                HI
+                These are your themes
             </div>
         );
     }
