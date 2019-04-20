@@ -10,6 +10,10 @@ class Dashboard extends Component {
                 <Link to="/themes" className="themesLink">
                     Themes
                 </Link>
+
+                <Link to="/data" className="dataLink">
+                    Data
+                </Link>
             </div>
         );
     }
