@@ -29,19 +29,20 @@ def create_app(test_config=None):
     def home():
         return render_template('home.html')
 
-    @app.route('/newpart')
-    def new_participant():
-        return render_template('participant.html')
+    @app.route('/newurl')
+    def new_url():
+        return render_template('url.html')
 
-    @app.route('/addpart',methods = ['POST', 'GET'])
-    def addpart():
+    @app.route('/addurl',methods = ['POST', 'GET'])
+    def addurl():
         if request.method == 'POST':
             try:
-                username = request.form['un']
+                url = request.form['url']
+                url = url.split('=')[1]
          
                 con = sqlite3.connect("database.db")
                 cur = con.cursor()
-                cur.execute("INSERT INTO participants (username) VALUES (?)", (username,))
+                cur.execute("INSERT INTO urls (url) VALUES (?)", (url,))
             
                 con.commit()
                 addmsg = "Record successfully added"
@@ -53,24 +54,25 @@ def create_app(test_config=None):
                 return render_template("result.html", msg = addmsg)
                 con.close()
 
-    @app.route('/listparts')
+    @app.route('/listurls')
     def list():
        con = sqlite3.connect("database.db")
        con.row_factory = sqlite3.Row
    
        cur = con.cursor()
-       cur.execute("select * from participants")
+       cur.execute("select * from urls")
    
        #rows = cur.fetchall();
 
-       usernames = []
+       urls = []
        for row in cur:
-           usernames.append(row['username'])
+           urls.append(row['url'])
 
-       data = { 'username' : usernames }
+       data = { 'url' : urls }
 
        resp = jsonify(data)
        resp.status_code = 200
+       #resp.headers['Access-Control-Allow-Origin:'] = '*'
    
        return resp
 
