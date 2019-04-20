@@ -9,12 +9,7 @@ class Dashboard extends Component {
             <div className="menu">
                 <Link to="/themes" className="themesLink">
                     Themes
-
-                    <Link to="/clip" className="clipLink">
-                        Clip
-                    </Link>
                 </Link>
-
             </div>
         );
     }
