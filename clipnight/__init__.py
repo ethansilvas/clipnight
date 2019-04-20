@@ -1,7 +1,7 @@
 import os
 import sqlite3
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Response, jsonify, json
 
 def create_app(test_config=None):
     # create and configure the app
@@ -61,7 +61,17 @@ def create_app(test_config=None):
        cur = con.cursor()
        cur.execute("select * from participants")
    
-       rows = cur.fetchall();
-       return render_template("list.html",rows = rows)
+       #rows = cur.fetchall();
+
+       usernames = []
+       for row in cur:
+           usernames.append(row['username'])
+
+       data = { 'username' : usernames }
+
+       resp = jsonify(data)
+       resp.status_code = 200
+   
+       return resp
 
     return app
