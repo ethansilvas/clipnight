@@ -42,7 +42,13 @@
         <!-- Page Content -->
         <h1>Hello World!</h1>
         <p>Welcome! Please pick a theme that you would vote on!</p>
+        <form method="POST" action="/">
+            <input type="text" name="title">
+            <input type="submit" value="Add">
+        </form>
         <br>
-        <p>Hello</p>
+        {% if name %}
+        <p>Hello {{ name }}</p>
+        {% endif %}
     </body>
 </html>
